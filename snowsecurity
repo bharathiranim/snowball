@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Snowball Fight! 🎄</title>
+    <style>
+        body {
+            background: url('https://www.w3schools.com/w3images/snow.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #ff4500;
+            font-size: 3em;
+            text-shadow: 2px 2px 5px #000000;
+        }
+        h2 {
+            color: #ffffff;
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.5em;
+            margin: 20px 0;
+            text-shadow: 1px 1px 3px #000000;
+        }
+        .cta-btn {
+            background-color: #ff6347;
+            color: white;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: #ff4500;
+        }
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 24px;
+            user-select: none;
+            animation: fall 10s linear infinite;
+        }
+        .content {
+            z-index: 5;
+            position: relative;
+            padding: 50px;
+        }
+        .content h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Snowflakes Animation -->
+    <div class="snowflakes">
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+    </div>
+
+    <div class="content">
+        <h1>🎄 Snowball Fight! 🎄</h1>
+        <h2>Santa’s Website is in Trouble! 🎅</h2>
+        <p>The glitch has tampered with Santa’s website, and only YOU can fix it!</p>
+        <p>Santa’s elves are counting on you to restore the holiday magic!</p>
+        
+        <button class="cta-btn" id="challengeStartBtn">Start the Challenge</button>
+    </div>
+
+    <!-- Hidden Script to Trigger Alert -->
+    <script>
+        document.getElementById('challengeStartBtn').addEventListener('click', () => {
+            // The glitch alert will appear on click
+            alert('You’ve been hit by a snowball! ❄');
+
+            // Add message to guide player
+            if (!document.querySelector('.glitch-message')) {
+                const glitchMessage = document.createElement('p');
+                glitchMessage.classList.add('glitch-message');
+                glitchMessage.textContent = 'Find and remove the glitch to restore Christmas magic!';
+                document.body.appendChild(glitchMessage);
+            }
+
+            // Trigger next script check after 1 second
+            setTimeout(() => {
+                const scripts = document.querySelectorAll('script');
+                const alertScriptPresent = Array.from(scripts).some(script =>
+                    script.textContent.includes("alert('You’ve been hit by a snowball!')")
+                );
+
+                if (!alertScriptPresent) {
+                    // Redirect to a subpage where the flag is revealed
+                    window.location.href = "flag.html";
+                }
+            }, 1000);
+        });
+
+        // Snowfall animation logic
+        for (let i = 0; i < 50; i++) {
+            let snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            snowflake.style.animationDelay = `${Math.random() * 10}s`;
+            document.querySelector('.snowflakes').appendChild(snowflake);
+        }
+
+        // Snowflake falling animation CSS
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes fall {
+                0% { top: -10%; opacity: 1; }
+                100% { top: 100%; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>
